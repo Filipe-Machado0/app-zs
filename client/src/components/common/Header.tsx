@@ -15,17 +15,29 @@ export const Header: React.FC = () => {
         {/* Logo / Brand */}
         <div
           onClick={() => navigate('/app')}
-          className="flex items-center gap-2.5 cursor-pointer group"
+          className="flex items-center gap-3 cursor-pointer group"
         >
-          <div className="size-9 rounded-2xl bg-forest-800 flex items-center justify-center text-forest-100 shadow-sm group-hover:scale-105 transition-transform">
-            <span className="font-extrabold text-sm">🌱</span>
+          <div className="relative">
+            <img
+              src="/logo.png"
+              alt="Zero Seletividade"
+              className="size-11 sm:size-12 object-contain group-hover:scale-105 transition-transform drop-shadow-xs"
+            />
+            <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 text-[8px] text-white font-black">
+              ★
+            </span>
           </div>
           <div>
-            <h1 className="font-extrabold text-base tracking-tight text-forest-900 leading-none">
-              Cardápio Seletivo
-            </h1>
-            <p className="text-[10px] font-semibold text-graphite-600 tracking-wide mt-0.5">
-              Área de Membros
+            <div className="flex items-center gap-1.5">
+              <h1 className="font-extrabold text-base sm:text-lg tracking-tight text-[#116B4C] leading-none uppercase">
+                ZERO SELETIVIDADE
+              </h1>
+              <span className="bg-[#E66B2E] text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full">
+                Kids
+              </span>
+            </div>
+            <p className="text-[10px] font-bold text-emerald-800 tracking-wide mt-0.5">
+              Aventura Alimentar em Família 🌱
             </p>
           </div>
         </div>
