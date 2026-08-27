@@ -1,0 +1,38 @@
+﻿rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && (request.auth.token.admin == true || request.auth.token.role == 'admin');
+    }
+    
+    // Imagens públicas e prévias da interface
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Materiais protegidos do Plano Básico (ex: E-book principal)
+    match /protected/basic/{allPaths=**} {
+      allow read: if isAuthenticated() && (
+        request.auth.token.role == 'basic' || 
+        request.auth.token.role == 'premium' || 
+        isAdmin()
+      );
+      allow write: if isAdmin();
+    }
+    
+    // Materiais protegidos exclusivos do Plano Premium (Bônus, Guias de Textura, Lanchinhos)
+    match /protected/premium/{allPaths=**} {
+      allow read: if isAuthenticated() && (
+        request.auth.token.role == 'premium' || 
+        isAdmin()
+      );
+      allow write: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "short_name": "Cardápio Seletivo",
+  "name": "Cardápio Seletivo | Área de Membros",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/app",
+  "background_color": "#FFF9EE",
+  "theme_color": "#116B4C",
+  "display": "standalone",
+  "orientation": "portrait"
+}
