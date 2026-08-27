@@ -1,15 +1,9 @@
 {
   "name": "cardapio-seletivo-root",
   "version": "1.0.0",
-  "description": "Cardapio Seletivo - Plataforma Educativa e Organizacional",
   "private": true,
-  "workspaces": [
-    "client",
-    "server"
-  ],
   "scripts": {
-    "build": "cd client && npm install && npm run build",
-    "build:client": "cd client && npm run build",
+    "build": "cd client && npm run build",
     "dev": "cd client && npm run dev"
   }
 }
