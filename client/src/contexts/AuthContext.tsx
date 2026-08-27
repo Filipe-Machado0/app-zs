@@ -53,17 +53,71 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   useEffect(() => {
-    // Check if demo user is stored in localStorage
+    // 1. Detectar parâmetros de Magic Link do Resend/Checkout (?email=...&plano=...&nome=...)
+    try {
+      const searchParams = new URLSearchParams(window.location.search);
+      const urlEmail = searchParams.get('email');
+      const urlPlano = searchParams.get('plano') || searchParams.get('plan') || searchParams.get('tier');
+      const urlNome = searchParams.get('nome') || searchParams.get('name');
+
+      if (urlEmail || urlPlano) {
+        let assignedRole: UserRole = 'premium';
+        if (urlPlano) {
+          const p = urlPlano.toLowerCase();
+          if (p === 'basico' || p === 'basic' || p === 'ebook' || p === 'padrao') {
+            assignedRole = 'basic';
+          } else if (p === 'premium' || p === 'vip' || p === 'vitalicio' || p === 'pro') {
+            assignedRole = 'premium';
+          } else if (p === 'admin') {
+            assignedRole = 'admin';
+          }
+        }
+
+        const effectiveEmail = urlEmail || 'compradora@exemplo.com';
+        const effectiveName = urlNome || effectiveEmail.split('@')[0];
+        const magicUid = `user-${Date.now()}`;
+
+        localStorage.setItem('demo_user_uid', magicUid);
+        localStorage.setItem('demo_user_role', assignedRole);
+        localStorage.setItem('user_email', effectiveEmail);
+        localStorage.setItem('user_display_name', effectiveName);
+
+        const magicProfile: UserProfile = {
+          uid: magicUid,
+          email: effectiveEmail,
+          displayName: effectiveName,
+          role: assignedRole,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          preferences: {
+            acceptedFoods: ['Batata', 'Banana', 'Pão', 'Arroz'],
+            challengingMeals: ['jantar'],
+            preferredTextures: ['crocante', 'macio'],
+            avoidedTextures: ['cremoso'],
+            cookingTimeMinutes: 20,
+          },
+        };
+
+        setProfile(magicProfile);
+        setLoading(false);
+        return;
+      }
+    } catch (e) {
+      console.warn('Erro ao processar Magic Link:', e);
+    }
+
+    // 2. Verificar se já existe sessão salva no localStorage
     const demoUid = localStorage.getItem('demo_user_uid');
     const demoRole = (localStorage.getItem('demo_user_role') as UserRole) || null;
+    const storedEmail = localStorage.getItem('user_email');
+    const storedName = localStorage.getItem('user_display_name');
 
-    if (!isFirebaseConfigured || demoRole) {
-      // Mock Demo Session
+    if (!isFirebaseConfigured || demoRole || storedEmail) {
       const effectiveRole = demoRole || 'premium';
       const mockProfile: UserProfile = {
         uid: demoUid || 'demo-user-123',
-        email: 'responsavel.demo@exemplo.com',
-        displayName: 'Responsável',
+        email: storedEmail || 'responsavel@exemplo.com',
+        displayName: storedName || 'Responsável',
         role: effectiveRole,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
