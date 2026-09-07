@@ -41,12 +41,8 @@ export const Planner: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isPremium) {
-      loadData();
-    } else {
-      setLoading(false);
-    }
-  }, [isPremium]);
+    loadData();
+  }, []);
 
   const handleUpdatePlan = async (updatedPlan: MealPlan) => {
     setPlan(updatedPlan);

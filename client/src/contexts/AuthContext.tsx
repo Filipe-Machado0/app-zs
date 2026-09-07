@@ -139,7 +139,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (currentUser) {
         await fetchProfile(currentUser.uid, currentUser.email || '');
       } else {
-        setProfile(null);
+        // Fallback demo profile with full access for instant web app preview
+        const demoUid = localStorage.getItem('demo_user_uid') || 'demo-user-123';
+        const demoRole = (localStorage.getItem('demo_user_role') as UserRole) || 'premium';
+        const storedEmail = localStorage.getItem('user_email') || 'responsavel@exemplo.com';
+        const storedName = localStorage.getItem('user_display_name') || 'Mãe / Responsável';
+
+        setProfile({
+          uid: demoUid,
+          email: storedEmail,
+          displayName: storedName,
+          role: demoRole,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          preferences: {
+            acceptedFoods: ['Batata', 'Banana', 'Pão', 'Arroz'],
+            challengingMeals: ['jantar'],
+            preferredTextures: ['crocante', 'macio'],
+            avoidedTextures: ['cremoso'],
+            cookingTimeMinutes: 20,
+          },
+        });
       }
       setLoading(false);
     });

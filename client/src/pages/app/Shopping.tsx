@@ -28,12 +28,8 @@ export const Shopping: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isPremium) {
-      loadList();
-    } else {
-      setLoading(false);
-    }
-  }, [isPremium]);
+    loadList();
+  }, []);
 
   const handleUpdateList = async (items: ShoppingListItem[]) => {
     if (!list) return;

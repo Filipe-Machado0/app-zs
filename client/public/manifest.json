@@ -1,11 +1,16 @@
 {
-  "short_name": "Cardápio Seletivo",
-  "name": "Cardápio Seletivo | Área de Membros",
+  "short_name": "Zero Seletividade",
+  "name": "Web App Zero Seletividade",
   "icons": [
+    {
+      "src": "/logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    },
     {
       "src": "/favicon.svg",
       "type": "image/svg+xml",
-      "sizes": "192x192 512x512"
+      "sizes": "64x64 32x32 24x24 16x16"
     }
   ],
   "start_url": "/app",
