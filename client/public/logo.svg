@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Outer Heart Border -->
+  <path d="M256 460 C240 448 80 340 52 232 C26 130 92 64 182 64 C222 64 246 84 256 102 C266 84 290 64 330 64 C420 64 486 130 460 232 C432 340 272 448 256 460 Z" fill="#116B4C" />
+  <!-- Inner Heart Dish -->
+  <path d="M256 426 C243 415 104 318 80 220 C56 128 116 88 184 88 C218 88 244 106 256 126 C268 106 294 88 328 88 C396 88 456 128 432 220 C408 318 269 415 256 426 Z" fill="#FFFDF8" />
+  <path d="M256 410 C244 400 116 308 95 218 C74 136 126 100 184 100 C214 100 242 116 256 136 C270 116 298 100 328 100 C386 100 438 136 417 218 C396 308 268 400 256 410 Z" fill="#F8F3E6" />
+  
+  <!-- Star in Center -->
+  <path d="M256 160 L266 195 L302 195 L273 216 L284 250 L256 230 L228 250 L239 216 L210 195 L246 195 Z" fill="#FFB703" stroke="#FB8500" stroke-width="4" stroke-linejoin="round" />
+  
+  <!-- Carrot Left -->
+  <g transform="translate(140, 180) rotate(-15)">
+    <!-- Leaves -->
+    <path d="M30 18 C26 5 10 5 12 18 C5 10 -5 22 8 28 C2 38 18 36 24 28" fill="#2D6A4F" />
+    <!-- Body -->
+    <path d="M12 26 C22 24 38 28 42 36 C42 60 22 110 12 120 C8 110 2 60 6 36 C8 28 10 26 12 26 Z" fill="#FF7A00" />
+    <path d="M10 50 Q18 53 26 50" stroke="#E05300" stroke-width="3" stroke-linecap="round" fill="none" />
+    <path d="M14 74 Q22 77 30 74" stroke="#E05300" stroke-width="3" stroke-linecap="round" fill="none" />
+  </g>
+
+  <!-- Broccoli Right -->
+  <g transform="translate(280, 205)">
+    <!-- Stem -->
+    <path d="M36 60 L44 95 Q48 105 58 105 L66 105 Q76 105 80 95 L88 60 Z" fill="#74C69D" />
+    <!-- Florets -->
+    <circle cx="38" cy="48" r="22" fill="#2D6A4F" />
+    <circle cx="62" cy="32" r="24" fill="#2D6A4F" />
+    <circle cx="86" cy="48" r="22" fill="#2D6A4F" />
+    <circle cx="50" cy="55" r="20" fill="#40916C" />
+    <circle cx="74" cy="55" r="20" fill="#40916C" />
+  </g>
+
+  <!-- Bottom Leaf Swoosh -->
+  <path d="M280 435 C320 425 430 380 420 290 C420 370 330 420 280 435 Z" fill="#52B788" />
+  <path d="M295 430 C330 410 405 375 410 310 C395 365 335 410 295 430 Z" fill="#74C69D" />
+</svg>

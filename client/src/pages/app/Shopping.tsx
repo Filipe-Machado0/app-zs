@@ -10,15 +10,18 @@ export const Shopping: React.FC = () => {
   const { isBasic, isPremium } = useAuth();
   const [list, setList] = useState<ShoppingList | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
 
   const loadList = async () => {
     setLoading(true);
+    setError(null);
     try {
       const res = await api.getShoppingList();
       setList(res.list);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Erro ao carregar lista de compras:', err);
+      setError(err?.message || 'Não foi possível carregar a lista de compras.');
     } finally {
       setLoading(false);
     }
@@ -74,11 +77,33 @@ export const Shopping: React.FC = () => {
     );
   }
 
-  if (loading || !list) {
+  if (loading) {
     return (
       <div className="py-20 text-center space-y-3">
         <Loader2 className="size-8 text-forest-700 animate-spin mx-auto" />
         <p className="text-xs font-bold text-graphite-600">Carregando sua lista de compras...</p>
+      </div>
+    );
+  }
+
+  if (error || !list) {
+    return (
+      <div className="bg-white rounded-3xl border border-forest-100 p-8 text-center max-w-md mx-auto my-12 space-y-4 shadow-sm">
+        <div className="size-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-xl font-bold">
+          ⚠️
+        </div>
+        <div className="space-y-1">
+          <h3 className="text-sm font-extrabold text-forest-900">Não foi possível carregar a Lista de Compras</h3>
+          <p className="text-xs text-graphite-600">
+            {error || 'Houve uma instabilidade temporária na conexão.'}
+          </p>
+        </div>
+        <button
+          onClick={loadList}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-forest-800 hover:bg-forest-900 text-white text-xs font-extrabold transition-all shadow-xs cursor-pointer"
+        >
+          <span>Tentar Novamente</span>
+        </button>
       </div>
     );
   }

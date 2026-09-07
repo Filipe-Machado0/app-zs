@@ -21,6 +21,8 @@ export const Header: React.FC = () => {
             <img
               src="/logo.png"
               alt="Zero Seletividade"
+              width="48"
+              height="48"
               className="size-11 sm:size-12 object-contain group-hover:scale-105 transition-transform drop-shadow-xs"
             />
             <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 text-[8px] text-white font-black">

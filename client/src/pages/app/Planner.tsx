@@ -11,6 +11,7 @@ export const Planner: React.FC = () => {
   const [plan, setPlan] = useState<MealPlan | null>(null);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
   // Modal de seleção de receita para adicionar em slot específico
@@ -23,6 +24,7 @@ export const Planner: React.FC = () => {
 
   const loadData = async () => {
     setLoading(true);
+    setError(null);
     try {
       const [planRes, recipesRes] = await Promise.all([
         api.getMealPlan(),
@@ -30,8 +32,9 @@ export const Planner: React.FC = () => {
       ]);
       setPlan(planRes.plan);
       setRecipes(recipesRes.recipes);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Erro ao carregar dados do planejador:', err);
+      setError(err?.message || 'Não foi possível carregar o planejador.');
     } finally {
       setLoading(false);
     }
@@ -119,11 +122,34 @@ export const Planner: React.FC = () => {
     );
   }
 
-  if (loading || !plan) {
+  if (loading) {
     return (
       <div className="py-20 text-center space-y-3">
         <Loader2 className="size-8 text-forest-700 animate-spin mx-auto" />
         <p className="text-xs font-bold text-graphite-600">Carregando seu planejamento...</p>
+      </div>
+    );
+  }
+
+  if (error || !plan) {
+    return (
+      <div className="bg-white rounded-3xl border border-forest-100 p-8 text-center max-w-md mx-auto my-12 space-y-4 shadow-sm">
+        <div className="size-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto text-xl font-bold">
+          ⚠️
+        </div>
+        <div className="space-y-1">
+          <h3 className="text-sm font-extrabold text-forest-900">Não foi possível carregar o Planejador</h3>
+          <p className="text-xs text-graphite-600">
+            {error || 'Houve uma instabilidade temporária na conexão.'}
+          </p>
+        </div>
+        <button
+          onClick={loadData}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-forest-800 hover:bg-forest-900 text-white text-xs font-extrabold transition-all shadow-xs cursor-pointer"
+        >
+          <RefreshCw className="size-3.5" />
+          <span>Tentar Novamente</span>
+        </button>
       </div>
     );
   }
